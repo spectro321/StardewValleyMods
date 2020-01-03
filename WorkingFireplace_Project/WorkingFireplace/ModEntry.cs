@@ -72,7 +72,7 @@ namespace WorkingFireplace
 
             bool isCold = !WarmInside(false) && tooColdToday;
 
-            string text = Helper.Translation.Get("msg.temp") + ((isCold ? Helper.Translation.Get("msg.tempcold") : Helper.Translation.Get("msg.tempwarm")));
+            string text = Helper.Translation.Get("msg.temp") + ((isCold ? Helper.Translation.Get("msg.cold") : Helper.Translation.Get("msg.warm")));
 
             int width = SpriteText.getWidthOfString(text);
             SpriteText.drawString(e.SpriteBatch, text, (int)vector.X - width, (int)vector.Y - 100, 999999, -1, 999999, 1f, 0.88f, false, -1, "", isCold ? SpriteText.color_Cyan : SpriteText.color_Orange);
@@ -94,16 +94,16 @@ namespace WorkingFireplace
                 if (warmth)
                 {
                     if (Config.showMessageOnStartOfDay)
-                        Game1.addHUDMessage(new HUDMessage(Helper.Translation.Get("msg.warm"), ""));
+                        Game1.addHUDMessage(new HUDMessage(Helper.Translation.Get("msg.warm"), "Il fait beau aujourd'hui."));
                 }
                 else
                 {
                     if (Config.showMessageOnStartOfDay)
                     {
                         if (HasSpouse())
-                            Game1.addHUDMessage(new HUDMessage(Helper.Translation.Get("msg.spousecold"), ""));
+                            Game1.addHUDMessage(new HUDMessage(Helper.Translation.Get("msg.spousecold"), "Votre mari/femme est froid:"));
                         else
-                            Game1.addHUDMessage(new HUDMessage(Helper.Translation.Get("msg.cold"), ""));
+                            Game1.addHUDMessage(new HUDMessage(Helper.Translation.Get("msg.cold"), "Il fait froid aujourd'hui"));
                     }
                     Game1.currentLocation.playSound("coldSpell");
 
@@ -123,15 +123,15 @@ namespace WorkingFireplace
                         {
                             case 1:
                                 Child child = Game1.player.getChildren()[0];
-                                GetSpouse().setNewDialogue("$2" + Helper.Translation.Get("dia.spousecold_child", new { child1 = child.Name }) + " " + please, true);
+                                GetSpouse().setNewDialogue("$2" + Helper.Translation.Get("dia.spousecold_child", new { child1 = child.Name }) + " La bébé tomberai malade dans ce froid." + please, true);
                                 break;
                             case 2:
                                 Child child1 = Game1.player.getChildren()[0];
                                 Child child2 = Game1.player.getChildren()[1];
-                                GetSpouse().setNewDialogue("$2" + Helper.Translation.Get("dia.spousecold_children", new { child1 = child1.Name, child2 = child2.Name }) + " " + please, true);
+                                GetSpouse().setNewDialogue("$2" + Helper.Translation.Get("dia.spousecold_children", new { child1 = child1.Name, child2 = child2.Name }) + "Les enfants frissonnent." + please, true);
                                 break;
                             default:
-                                GetSpouse().setNewDialogue("$2" + Helper.Translation.Get("dia.spousecold") + " " + please, true);
+                                GetSpouse().setNewDialogue("$2" + Helper.Translation.Get("dia.spousecold") + "Il fait froid de canard dehors !" + please, true);
                                 break;
                         }
                     }
@@ -170,7 +170,7 @@ namespace WorkingFireplace
                         SetFireplace(farmHouse, grabtile.X, grabtile.Y, true);
                         return;
                     }
-                    Game1.showRedMessage(Helper.Translation.Get("msg.nowood", new { Config.wood_pieces }));
+                    Game1.showRedMessage(Helper.Translation.Get("msg.nowood", "Vous avez pas assez de bois." new { Config.wood_pieces }));
                 }
             }
         }
